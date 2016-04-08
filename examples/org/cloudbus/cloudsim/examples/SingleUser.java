@@ -38,8 +38,10 @@ public class SingleUser {
 	/** The vmlist. */
 	private static List<Vm> vmlist;
 	
+	/** The userlist. */
 	private static List<User> userlist;
 	
+	/** The hostlist. */
 	private static List<Host> hostlist1;
 
 	/**
@@ -48,16 +50,15 @@ public class SingleUser {
 	 * @param args the args
 	 */
 	
+	
+	
+	
+	
+	//how the broker works with a single customer with pledge system.
 	public static void main(String[] args) {
 		
-		/*int[] timestamp = readFile("/home/adrianhu/data/time");
-		int[] duration = readFile("/home/adrianhu/data/duration");
-		int [] resask = readFile("/home/adrianhu/data/resources");*/
-		
-		
-		
-		
-		/////////////creates some datasets for collecting data
+
+		// Creates some datasets for collecting data during the simulation
 		Random r = new Random();
 		ArrayList<Integer> acpu = new ArrayList<Integer> ();
 		ArrayList<Integer> aram = new ArrayList<Integer> ();
@@ -70,7 +71,7 @@ public class SingleUser {
 		
 		
 		
-		
+		// We could first generate the relinquish probabilities that would be used during the simulation
 		/*double[] dddd = {
 				0.17420717555954304,0.6796464520685601,0.3046389840089347,0.3135013768048024,0.08632956232885294, 
 				0.4821213386048301,0.5556507163891892,0.4980677634454449,0.8536793028322704,0.3536081438034621, 
@@ -93,15 +94,12 @@ public class SingleUser {
 				0.17971112767404274,0.5046204411437387,0.11201121005504677,0.20120328844472396,0.21762381631545194
 				};
 		
-		
-		
 		for (int i = 0; i<dddd.length;i++){
 			relinp.add(dddd[i]);
 		}*/
 
-		//standard deviation is 0.3, and the average is 0.5;
-		//70% of the value will be between 0 to 1; 95% of the value will be between -0.5 and 1.5;
-		
+		// Or we could also automatically use Gaussian distribution to generate relinquish probabilities
+		// the standard deviation is 0.3, and the average is 0.9;
 		for(int i = 0 ; i < 400; i++){
 			double a = r.nextGaussian() * 0.3 + 0.9;
 			if (a < 0 || a > 1){}
@@ -113,9 +111,8 @@ public class SingleUser {
 		
 	
 		Log.printLine("Starting CloudSimExample1...");
-		///I removed "try"
-			// First step: Initialize the CloudSim package. It should be called
-			// before creating any entities.
+			// I removed "try" from the original example so that it could be extended easier by adding more instances
+			// Initialize the CloudSim package. It should be called before creating any entities.
 			int num_user = 1; // number of cloud users
 			Calendar calendar = Calendar.getInstance();
 			boolean trace_flag = false; // mean trace events
@@ -123,30 +120,33 @@ public class SingleUser {
 			// Initialize the CloudSim library
 			CloudSim.init(num_user, calendar, trace_flag);
 
-			// Second step: Create Datacenters
+			// Create Datacenters
 			// Datacenters are the resource providers in CloudSim. We need at
-			// list one of them to run a CloudSim simulation
+			// least one of them to run a CloudSim simulation
 			Datacenter datacenter0 = createDatacenter("Datacenter_0");
 			
-			//adrian
+			// Create an user and put it into userlist. Users are cloud service customers
+			// they will submit requests(cloudlets) to the broker
 			userlist = new ArrayList<User>();
 			int userid = 0;
 			User user = new User(userid);
 
 			userlist.add(user);
+		
 			
-			hostlist1 = new ArrayList<Host>();
+			
 
-			// Third step: Create Broker
+			// Create Broker
 			DatacenterBroker broker = createBroker();
 			int brokerId = broker.getId();
-			//here I set the initial value of totalprofit as 100, which will be fixed after discussion;
-			double totalProfit = 100;
+			
+			// Initiate the hostlist1, obtain the host from the original hostlist in datacenter and add the host into hostlist1
 			Host host = datacenter0.getHostList().get(0);
+			hostlist1 = new ArrayList<Host>();
 			hostlist1.add(host);
 			host = hostlist1.get(0);
-			host.setTotalProfit(totalProfit);
 			
+			// Build the connection between the host and the user
 			broker.setHostList(hostlist1);
 			broker.submitUserList(userlist);
 			broker.BindUserToHost(user.getuserId(), host.getId());
@@ -154,27 +154,24 @@ public class SingleUser {
 			// Fourth step: Create one virtual machine
 			vmlist = new ArrayList<Vm>();
 
-			// Fifth step: Create one Cloudlet
+			// Create one Cloudlet(request) with the details and add it into cloudletlist
 			cloudletList = new ArrayList<Cloudlet>();
-			
 			int pesNumber = 300; // number of cpus
 			// Cloudlet properties
 			int cloudletid = 0;
 			long length = 400000;
-			//the unit of this filesize is Byte; so I need to divide it with 1000000000;
+			// The unit of this filesize is Byte; so I need to divide it with 1000000000;
 			long fileSize = 300000000000L;
 			long outputSize = 300;
-			//double price = 300;
-			//I will set pledge later.
-			//double pledgeAmount = price * 1.05;
 			UtilizationModel utilizationModel = new UtilizationModelFull();
-			
 			Cloudlet cloudlet = new Cloudlet(cloudletid, length, pesNumber, fileSize, outputSize, utilizationModel, utilizationModel, utilizationModel);
+			// Bind the cloudlet to the broker
 			cloudlet.setbrokerId(brokerId);
+			
+
+			// Bind the cloudlet to the user
 			cloudlet.setuser(user);
 			//cloudlet.setExecStartTime(0.1);
-			//cloudlet.setprice(price);
-			
 			user.setCloudletId(cloudlet.getCloudletId());
 			
 			// add the cloudlet to the list
@@ -183,16 +180,20 @@ public class SingleUser {
 			// submit cloudlet list to the broker
 			broker.submitCloudletList(cloudletList);
 			
-			//adrian
+			// User submits the request to the broker with the cloudlet
+			// It could be improved that the details of the request could be put into cloudlet, not just the request(variables of User)
 			double numtime = 10;
 			int numram = 300;
+			int numcpu = 300;
+			long numstorage = 300L;
 			user.setnumtime(numtime);
 			user.submitCloudlet(cloudlet);
-			user.submitRequest(user.getCloudlet(), false, 300, 300, (long)(300), numtime);
+			user.submitRequest(user.getCloudlet(), false, numcpu, numram, numstorage, numtime);
 			
 			//set user's aop as not null
 			host.getmtimes().put(userid, 0);
-			
+			// Since the user in this simulaiton is an existing user, so we need to add some records for this user
+			// In this simulation, AOP is same as SOP as we assume that the user didn't user other services before.
 			ArrayList<Double> se = new ArrayList<Double> ();
 			ArrayList<Double> de = new ArrayList<Double> ();
 			host.getmaop().put(userid, se);
@@ -477,7 +478,6 @@ public class SingleUser {
 				storage,
 				peList,
 				new VmSchedulerTimeShared(peList));
-		host.setTotalProfit(0);
 		hostList.add(host); // This is our machine
 
 		// 5. Create a DatacenterCharacteristics object that stores the
