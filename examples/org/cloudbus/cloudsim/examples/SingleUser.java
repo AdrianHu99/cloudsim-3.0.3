@@ -206,20 +206,28 @@ public class SingleUser {
 			
 			//here I set the basic price of the task; 0.01 dollar per hour per CPU, 0.01 dollar per hour per GB of RAM, 1*0.001 dollar per hour per GB of Storage;
 			//maybe I need to write a function to calculate the price of the task;
-			/*double basicprice = user.getnumCPU() * 0.01 + user.getnumRAM() * 0.01 + (double)(user.getnumStorage()*0.001);
-			double pledge = basicprice * 1.05;*/
+			
 			
 			System.out.println("user" + user.getuserId() + " asks for " + user.getnumCPU() + " CPUs and " + user.getnumRAM() + " GB of RAM and " + user.getnumStorage() + " GB of storage to host" + host.getId());
-			//int num = 0;
+			
 			double payprice = 0;
 			double priceA = 0;
+			// Here we decide to use model 4, it could be changed to other models
 			int id = 4;
 			if(cloudlet.pledge == true){
 				//here I didn't consider giving back the extra money if the user will not relinquish any resource;
 				///////////the user is an old user////////////////////
+				
+				// Instance number
 				int a = host.getmtimes().get(userid);
+				
+				// Calculate pledge
 				priceA = broker.REpledge(user.getuserId(), host.getId(), id);
+				
+				// Update instance number
 				host.addmtimes(userid);
+				
+				// Update records at host side
 				host.addmsop(userid, relinp.get(a));
 				host.addmaop(userid, relinp.get(a));
 				
@@ -227,18 +235,25 @@ public class SingleUser {
 				
 				int utimeh = host.getmtimes().get(userid) ;
 				System.out.println("this is the " + utimeh + "th time for user" + user.getuserId() + " to use services of host" + host.getId());
+				
+				
+				
+				// Calculate payprice
 				payprice = (user.getnumCPU() * 0.01 + user.getnumRAM() * 0.01 + (double)(user.getnumStorage()*0.001) - priceA) * 1.1 + priceA;
+				
+				// Add records for plotting
 				acpu.add(user.getnumCPU());
 				aram.add(user.getnumRAM());
 				asto.add(user.getnumStorage());
 			}
 			else{
-				if (host.getmtimes().get(userid) == 0){
+				if (host.getmtimes().get(userid) == 0){ // First time user
 					host.addmtimes(userid);
 					ArrayList<Double> aaa = new ArrayList<Double> ();
 					ArrayList<Double> bbb = new ArrayList<Double> ();
 					//here I will set some default values for aop and sop and ...;
 					if(host.getmaop().get(userid) == null){
+					// Resource estimation at broker side
 					broker.CalNumOfRes(user.getuserId(), host.getId(), 0.3, 0.3, id);
 					//right now we don't consider the pricing model;
 					//payprice = broker.CalPrice(cloudlet.getCloudletId(), host.getId(), 0.3);
@@ -253,7 +268,7 @@ public class SingleUser {
 					host.addmsop(userid, relinp.get(0));
 					host.addmaop(userid, relinp.get(0));
 				}
-				else if(host.getmtimes().get(userid) == 1){
+				else if(host.getmtimes().get(userid) == 1){// Second time user
 					host.addmtimes(userid);
 					// will add codes for sop and aop and ...;
 					broker.CalNumOfRes1(user.getuserId(), host.getId(), id);
@@ -262,7 +277,7 @@ public class SingleUser {
 					//right now we don't consider the pricing model;
 					//payprice = broker.CalPrice(cloudlet.getCloudletId(), host.getId());
 				}
-				else if(host.getmtimes().get(userid) == 2){
+				else if(host.getmtimes().get(userid) == 2){ // Third time user
 					host.addmtimes(userid);
 					// will add codes for sop and aop and ...;
 					broker.CalNumOfRes2(user.getuserId(), host.getId(), id);
@@ -271,7 +286,7 @@ public class SingleUser {
 					//right now we don't consider the pricing model;
 					//payprice = broker.CalPrice(cloudlet.getCloudletId(), host.getId());
 				}
-				else if(host.getmtimes().get(userid) > 2){
+				else if(host.getmtimes().get(userid) > 2){ //Existing user
 					int a = host.getmtimes().get(userid);
 					broker.CalNumOfRes(user.getuserId(), host.getId(), id);
 					host.addmtimes(userid);
@@ -320,6 +335,7 @@ public class SingleUser {
 						broker.bindCloudletToVm(cloudletid, vmid);
 						payprice = payprice * user.gettime();
 						int aa = utimeh -1;
+						// Obtain the current relinquish probability
 						double bb = relinp.get(aa);
 						System.out.println("the relinquish probability of the user for this time is " + bb);
 						//System.out.println(bb);
@@ -351,7 +367,7 @@ public class SingleUser {
 			
 			
 			
-			
+			// Calculate the average of the allocated resources
 			int ac=0, ar = 0;
 			long ast = 0;
 			for (Integer record : acpu) {
@@ -380,6 +396,8 @@ public class SingleUser {
 				paymentAll += aaaa;
 			}
 			
+			
+			// Calculate the average of reimbursements and payments
 			double average = scoreAll/reimburse.size();
 			double payave = paymentAll/payment.size();
 			
@@ -402,6 +420,8 @@ public class SingleUser {
 		
 	/**
 	 * Read the file and input the parameters into the program
+	 *
+	 * This would be used for real-time simulation in the future
 	 *
 	 * @param the filepath of the parameter(the text file)
 	 *
