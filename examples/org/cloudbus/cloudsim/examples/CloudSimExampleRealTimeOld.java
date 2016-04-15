@@ -331,7 +331,10 @@ public class CloudSimExampleRealTimeOld {
 						//although the unit of RAM and Storage is MB is the default configuration, but here I still use GB because of Amazon EC2's pricing model;
 						System.out.println("host" + host.getId() + " will give " + user.getnumCPU() + " CPUs and " +user.getnumRAM()+ " GB of RAM and " + user.getnumStorage() + " GB of storage to user" + userid + " to finish his cloudlet " + cloudlet.getCloudletId());
 						System.out.println("the user will pay " + payprice + " dollars to the broker.");
-						
+						double reimbursement = 0;
+						reimbursement = payprice * bb;
+						// Update the records of reimbursement and payment.
+						reimburse.add(reimbursement);
 						payment.add(payprice);
 						System.out.println(host.getmtimes().get(userid));
 			// Sixth step: Starts the simulation
@@ -504,7 +507,9 @@ public class CloudSimExampleRealTimeOld {
 
 			System.out.println("host " + host.getId() + " will give " + user1.getnumCPU() + " CPUs and " +user1.getnumRAM()+ " GB of RAM and " + user1.getnumStorage() + " GB of storage to user" + userid + " to finish his cloudlet " + cloudlet1.getCloudletId());
 			System.out.println("the user will pay " + payprice + " dollars to the broker.");
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			CloudSim.startSimulation();
@@ -675,7 +680,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user2.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -842,7 +849,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user3.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1008,7 +1017,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user4.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1173,7 +1184,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user5.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1338,7 +1351,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user6.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1502,7 +1517,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user7.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1667,7 +1684,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user8.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1832,7 +1851,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user9.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1996,7 +2017,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user10.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2160,7 +2183,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user11.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2323,7 +2348,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user12.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2486,7 +2513,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user13.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2650,7 +2679,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user14.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2813,7 +2844,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user15.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2975,7 +3008,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user16.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3139,7 +3174,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user17.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3302,7 +3339,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user18.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3465,7 +3504,9 @@ public class CloudSimExampleRealTimeOld {
 			
 			payprice = payprice * user19.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 

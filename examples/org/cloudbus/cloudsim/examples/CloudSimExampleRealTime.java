@@ -59,23 +59,23 @@ public class CloudSimExampleRealTime {
 	 */
 	
 	public static void main(String[] args) {
-//		int[] timestamp = new int[20];
-//		int[] duration = new int[20];
-//		int[] resask = new int[20];
-		int[] timestamp = {0, 2, 10, 11, 22, 25, 29, 33, 37, 38, 53, 55, 61, 62, 65, 81, 85, 89, 91, 95};//new int[20];
-		int[] duration = {102, 52, 43, 110, 43, 11, 57, 45, 14, 24, 116, 50, 17, 76, 105, 33, 92, 57, 47, 115};//new int[20];
-		int[] resask = {124, 86, 176, 240, 180, 62, 63, 25, 61, 237, 28, 116, 25, 231, 57, 89, 173, 33, 91, 21};///new int[20];
+		int[] timestamp = new int[20];
+		int[] duration = new int[20];
+		int[] resask = new int[20];
+//		int[] timestamp = {0, 2, 10, 11, 22, 25, 29, 33, 37, 38, 53, 55, 61, 62, 65, 81, 85, 89, 91, 95};//new int[20];
+//		int[] duration = {102, 52, 43, 110, 43, 11, 57, 45, 14, 24, 116, 50, 17, 76, 105, 33, 92, 57, 47, 115};//new int[20];
+//		int[] resask = {124, 86, 176, 240, 180, 62, 63, 25, 61, 237, 28, 116, 25, 231, 57, 89, 173, 33, 91, 21};///new int[20];
 		int[] expiretime = new int[20];
-//		
-//		timestamp[0] = 0;
-//		ExponentialDistribution exp = new ExponentialDistribution(4.0);
-//		for(int i = 1; i < 20; i++){
-//			timestamp[i] = (int)exp.sample() + 1+timestamp[i-1];
-//		}
-//		for(int i = 0; i < 20; i ++){
-//			duration[i] = 10 + (int)(Math.random() * ((70 - 10) + 1));
-//			resask[i] = 30 + (int)(Math.random() * ((150 - 30) + 1));
-//		}
+		
+		timestamp[0] = 0;
+		ExponentialDistribution exp = new ExponentialDistribution(4.0);
+		for(int i = 1; i < 20; i++){
+			timestamp[i] = (int)exp.sample() + 1+timestamp[i-1];
+		}
+		for(int i = 0; i < 20; i ++){
+			duration[i] = 10 + (int)(Math.random() * ((120 - 10) + 1));
+			resask[i] = 20 + (int)(Math.random() * ((250 - 20) + 1));
+		}
 		
 		//int[] timestamp = {0, 4, 6, 13, 15, 24, 25, 30, 32, 35, 36, 38, 39, 41, 51, 52, 53, 54, 58, 60};
 		/*int[] timestamp = readFile("/home/adrianhu/data/time");
@@ -83,10 +83,10 @@ public class CloudSimExampleRealTime {
 		int[] resask = readFile("/home/adrianhu/data/resources");
 		
 		int[] expiretime = new int[timestamp.length];*/
+		
+		//[0, 4, 6, 13, 15, 24, 25, 30, 32, 35, 36, 38, 39, 41, 51, 52, 53, 54, 58, 60]
 		double[] aveRP = DreadFile("/home/adrianhu/data/ARP");
 		int resources = 1000;
-		//[0, 4, 6, 13, 15, 24, 25, 30, 32, 35, 36, 38, 39, 41, 51, 52, 53, 54, 58, 60]
-		
 		
 		Random r = new Random();
 		ArrayList<Integer> acpu = new ArrayList<Integer> ();
@@ -328,7 +328,10 @@ public class CloudSimExampleRealTime {
 						//although the unit of RAM and Storage is MB is the default configuration, but here I still use GB because of Amazon EC2's pricing model;
 						System.out.println("host" + host.getId() + " will give " + user.getnumCPU() + " CPUs and " +user.getnumRAM()+ " GB of RAM and " + user.getnumStorage() + " GB of storage to user" + userid + " to finish his cloudlet " + cloudlet.getCloudletId());
 						System.out.println("the user will pay " + payprice + " dollars to the broker.");
-						
+						double reimbursement = 0;
+						reimbursement = payprice * bb;
+						// Update the records of reimbursement and payment.
+						reimburse.add(reimbursement);
 						payment.add(payprice);
 						System.out.println(host.getmtimes().get(userid));
 			// Sixth step: Starts the simulation
@@ -501,7 +504,9 @@ public class CloudSimExampleRealTime {
 
 			System.out.println("host " + host.getId() + " will give " + user1.getnumCPU() + " CPUs and " +user1.getnumRAM()+ " GB of RAM and " + user1.getnumStorage() + " GB of storage to user" + userid + " to finish his cloudlet " + cloudlet1.getCloudletId());
 			System.out.println("the user will pay " + payprice + " dollars to the broker.");
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			CloudSim.startSimulation();
@@ -672,7 +677,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user2.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -839,7 +846,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user3.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1005,7 +1014,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user4.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1170,7 +1181,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user5.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1335,7 +1348,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user6.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1499,7 +1514,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user7.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1664,7 +1681,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user8.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1829,7 +1848,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user9.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1993,7 +2014,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user10.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2157,7 +2180,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user11.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2320,7 +2345,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user12.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2483,7 +2510,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user13.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2647,7 +2676,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user14.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2810,7 +2841,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user15.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2972,7 +3005,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user16.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3136,7 +3171,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user17.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3299,7 +3336,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user18.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3462,7 +3501,9 @@ public class CloudSimExampleRealTime {
 			
 			payprice = payprice * user19.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 

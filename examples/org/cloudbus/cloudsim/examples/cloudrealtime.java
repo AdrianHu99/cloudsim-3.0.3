@@ -306,17 +306,29 @@ public class cloudrealtime {
 						
 						// submit vm list to the broker
 						broker.submitVmList(vmlist);
-						
 						broker.bindCloudletToVm(cloudletid, vmid);
+						
+						
+						
+						// Calculate how much the user needs to pay.
 						payprice = payprice * user.gettime();
+						// Obtain the relinquish probability this time.
 						double bb = relinp.get(0);
 						System.out.println("the relinquish probability of the user for this time is " + bb);
-						
 						//although the unit of RAM and Storage is MB is the default configuration, but here I still use GB because of Amazon EC2's pricing model;
 						System.out.println("host" + host.getId() + " will give " + user.getnumCPU() + " CPUs and " +user.getnumRAM()+ " GB of RAM and " + user.getnumStorage() + " GB of storage to user" + userid + " to finish his cloudlet " + cloudlet.getCloudletId());
 						System.out.println("the user will pay " + payprice + " dollars to the broker.");
-						
+						// Calculate how much should the broker reimburse to the user
+						double reimbursement = 0;
+						reimbursement = payprice * bb;
+						// Update the records of reimbursement and payment.
+						reimburse.add(reimbursement);
 						payment.add(payprice);
+						
+						
+						
+						
+						
 						System.out.println(host.getmtimes().get(userid));
 			// Sixth step: Starts the simulation
 			CloudSim.startSimulation();
@@ -490,6 +502,9 @@ public class cloudrealtime {
 			System.out.println("the user will pay " + payprice + " dollars to the broker.");
 			
 			System.out.println(host.getmtimes().get(userid));
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			payment.add(payprice);
 			CloudSim.startSimulation();
 			
@@ -659,7 +674,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user2.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -826,7 +843,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user3.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -992,7 +1011,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user4.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1157,7 +1178,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user5.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1322,7 +1345,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user6.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1486,7 +1511,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user7.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1651,7 +1678,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user8.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1816,7 +1845,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user9.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -1980,7 +2011,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user10.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2144,7 +2177,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user11.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2307,7 +2342,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user12.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2470,7 +2507,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user13.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2634,7 +2673,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user14.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2797,7 +2838,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user15.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -2959,7 +3002,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user16.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3123,7 +3168,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user17.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3286,7 +3333,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user18.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 			
@@ -3449,7 +3498,9 @@ public class cloudrealtime {
 			
 			payprice = payprice * user19.gettime();
 			
-			
+			reimbursement = payprice * bb;
+			// Update the records of reimbursement and payment.
+			reimburse.add(reimbursement);
 			System.out.println(host.getmtimes().get(userid));
 			payment.add(payprice);
 
@@ -3614,7 +3665,9 @@ public class cloudrealtime {
 	
 	payprice = payprice * user20.gettime();
 	
-	
+	reimbursement = payprice * bb;
+	// Update the records of reimbursement and payment.
+	reimburse.add(reimbursement);
 	System.out.println(host.getmtimes().get(userid));
 	payment.add(payprice);
 
@@ -3774,7 +3827,9 @@ broker21.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user21.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -3934,7 +3989,9 @@ broker22.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user22.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -4094,7 +4151,9 @@ broker23.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user23.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -4254,7 +4313,9 @@ broker24.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user24.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -4414,7 +4475,9 @@ broker25.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user25.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -4574,7 +4637,9 @@ broker26.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user26.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -4734,7 +4799,9 @@ broker27.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user27.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -4894,7 +4961,9 @@ broker28.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user28.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -5054,7 +5123,9 @@ broker29.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user29.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -5214,7 +5285,9 @@ broker30.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user30.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -5374,7 +5447,9 @@ broker31.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user31.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -5534,7 +5609,9 @@ broker32.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user32.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -5694,7 +5771,9 @@ broker33.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user33.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -5854,7 +5933,9 @@ broker34.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user34.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6014,7 +6095,9 @@ broker35.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user35.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6174,7 +6257,9 @@ broker36.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user36.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6334,7 +6419,9 @@ broker37.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user37.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6494,7 +6581,9 @@ broker38.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user38.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6654,7 +6743,9 @@ broker39.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user39.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6814,7 +6905,9 @@ broker40.bindCloudletToVm(cloudletid, vmid);
 
 payprice = payprice * user40.gettime();
 
-
+reimbursement = payprice * bb;
+// Update the records of reimbursement and payment.
+reimburse.add(reimbursement);
 System.out.println(host.getmtimes().get(userid));
 payment.add(payprice);
 
@@ -6955,13 +7048,14 @@ CloudSim.startSimulation();
 	public static final void CalUtinew(int timestamp, ArrayList<Integer> res, HashMap<Integer, Double> uti, double utinow, TreeMap<Integer, Double> utireal) {
 		//remember the lastentry of res and expiretime are equal, but different to the lastentry of uti since it is now updated yet.
 		if(timestamp == 0){
+			// If there is no record meaning it is new, then just add record to it.
 			uti.put(0, res.get(0)*0.001);
 			utireal.put(0, res.get(0)*0.001);
 		}
 		else{
+			// If there are records, first find the last record, and update it and then append the new record to the map with timestamp.
 			int lastentry = res.size()-1;
 			int resnow = res.get(lastentry);
-			//double utinow = uti.get(lastentry -1);
 			utinow = utinow + resnow*0.001;
 			uti.put(lastentry, utinow);
 			utireal.put(timestamp, utinow);
